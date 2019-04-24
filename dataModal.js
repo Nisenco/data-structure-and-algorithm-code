@@ -641,7 +641,7 @@ function BinarySearchTree(){
 	}
 	// 移除一个节点
 	var removeNode = function(key){
-
+		console.log('231');
 	}
 	this.remove = function(key){
 		root =removeNode(key);
