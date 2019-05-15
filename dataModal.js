@@ -650,6 +650,47 @@ function BinarySearchTree(){
 	}
 } 
 
+// 图 是一种非线性数据结构 图是一种网络结构的抽象模型，是一个边连接的节点（顶点）。
+//  一个图 G = （V,E）;V:一组顶点；E：一组边，连接V中的顶点
+/***
+图的术语 ：
+	由一条边连接在一起的顶点称为相邻顶点。
+	一个顶点的度是其相邻顶点的数量。
+	路径是顶点v1, v2,…,vk的一个连续序列，其中vi和vi+1是相邻的。
+	简单路径要求不包含重复的顶点。
+	环也是一个简单路径。
+	如果图中每两个顶点间都存在路径，则该图是连通的。
+	每两个顶点间在双向上都存在路径，则该图是强连通的。
+**/ 
+
+// 排序与搜索算法
+
+function ArryList(){
+	var array = [];
+	this.insert = fucntion(item){
+		array.push(item);
+	}
+	this.toString = function(){
+		return array.join();
+	}
+	// 冒泡排序算法
+	var swap = function(array,index1,index2){
+		var temp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = temp;
+	}
+	this.bubbleSort = function(){
+		var length = array.length;
+		for(var i = 0;i<length;i++){ // 控制循环次数
+			for(var j=0;j<length-1-i;j++){ // 内循环控制 比较的次数
+				if(array[j]>array[j+1]){
+					swap(array,j,j+1);
+				}
+			}
+		}
+	}
+}
+
 
 
 
