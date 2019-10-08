@@ -729,8 +729,58 @@ var merge = function(left,right){
 	}
 	return result;
 }
-
-
+// 快速排序
+//  快速排序使用分治思想
+var quickSort = function(ary){
+	quick(ary,0,ary,length-1);
+}
+var quick = (ary,left,right) => {
+	var index;
+	if(ary.length > 1){
+		index = partition(ary,left,right);
+		if(left < index-1){
+			quick(ary,left,index-1);
+		}else{
+			quick(ary,index,right);
+		}
+	}
+}
+var partition = function(ary,left,right){
+	var pivot = ary[Math.floor((left+right)/2)], // 选择中间项作为主元；
+	 i = left,
+	 j = right;
+	 while(i<=j){
+		while(ary[i] < ary[pivot]){
+			i++;
+		}
+		while(ary[j] > ary[pivot]){
+			j--;
+		}
+		if(i <= j){
+			[ary[i],ary[j]] = [ary[j],ary[i]];
+			i++;
+			j--;
+		}
+	}
+	return i;
+}
+//  二分查找
+var binarySearch = function(ary,item){
+	var _ary = quickSort(ary);
+	var low = 0,high = ary.length-1,mid,ele;
+	while(low <= height){
+		mid = Math.floor((low+high)/2);
+		ele = ary[mid];
+		if(ele < item){
+			low = mid + 1;
+		}else if(ele > item){
+			high = mid -1
+		}else{
+			return mid;
+		}
+	}
+	return -1;
+}
 
 
 
