@@ -319,7 +319,7 @@ function Set(){
 	this.has =function(value){
 		return items.hasOwnProperty(value);
 	}
-	this.add = functrion(value){
+	this.add = function(value){
 		if(!this.has(value)){
 			items[value] = value;
 			return true;
@@ -383,7 +383,6 @@ function HashTable(){
 	},
 	this.put = function(key,value){
 		var position = loseloseHashCode(key);
-		console.log(position,'____________',key);
 		table[key] = value;
 	},
 	this.get = function(key){
@@ -412,7 +411,6 @@ function separationLink(){
 	}
 	this.put = function(key,value){
 		var position = loseloseHashCode(key);
-		console.log(position,'____________',key);
 		if(table[position] == undefined){
 			table[position] = new LinkedList();
 		}
@@ -650,84 +648,87 @@ function BinarySearchTree(){
 	}
 } 
 
-// 图 是一种非线性数据结构 图是一种网络结构的抽象模型，是一个边连接的节点（顶点）。
-//  一个图 G = （V,E）;V:一组顶点；E：一组边，连接V中的顶点
-/***
-图的术语 ：
-	由一条边连接在一起的顶点称为相邻顶点。
-	一个顶点的度是其相邻顶点的数量。
-	路径是顶点v1, v2,…,vk的一个连续序列，其中vi和vi+1是相邻的。
-	简单路径要求不包含重复的顶点。
-	环也是一个简单路径。
-	如果图中每两个顶点间都存在路径，则该图是连通的。
-	每两个顶点间在双向上都存在路径，则该图是强连通的。
-**/ 
-
-// 排序与搜索算法
-
-function ArryList(){
-	var array = [];
-	this.insert = fucntion(item){
-		array.push(item);
-	}
-	this.toString = function(){
-		return array.join();
-	}
-	// 冒泡排序算法 时间复杂度 O（N^2）
-	var swap = function(array,index1,index2){
-		var temp = array[index1];
-		array[index1] = array[index2];
-		array[index2] = temp;
-	}
-	this.bubbleSort = function(){
-		var length = array.length;
-		for(var i = 0;i<length;i++){ // 控制循环次数
-			for(var j=0;j<length-1-i;j++){ // 内循环控制 比较的次数
-				if(array[j]>array[j+1]){
-					swap(array,j,j+1);
-				}
-			}
-		}
-	}
-	// 选择排序 时间复杂度 O（N^2）
-	// 选择排序思路，找到数据结构中的最小值，并放在第一位，接着找到第二小的值放在第二位，并以此类推
-	this.selectionSort = function (){
-		var length = array.length,
-			indexMin;
-		for(var i=0;i<length-1;i++){
-			indexMin = i;
-			for(var j = i;j<length;j++){
-				if(array[indexMin]>array[j]){
-					indexMin = j;
-				}
-			}
-			if(i !== indexMin ){
-				swap(array,i,index);
-			}
-		}
-
-	}
-}
-
 
 // 排序算法
-// 冒泡排序 算法
-
+// 冒泡排序算法  时间复杂度 为O（n^2）
 var bubbleSort = function (ary){
 	var length = ary.length;
 	for(var i = 0;i <length; i++){
-		for(var j =i; j<length; j++ ){
-			if(ary[j] > ary[j++]){
-				[ary[j++],ary[j]] = [ary[j],ary[j++]];
+		for(var j =0; j<length-1-i; j++ ){
+			if(ary[j] > ary[j+1]){
+				[ary[j+1],ary[j]] = [ary[j],ary[j+1]];
 			}
 			
 		}
 	}
+	return ary;
 }
-
-
-
-
+// 选择排序算法
+// 大致思路为 找到数据结构中 最小值并将其放到第一位，接着找到第二小的放到第二位
+//  时间复杂度为 O(n^2)
+var selectSort = function(ary){
+	var length = ary.length,indexMin;
+	for(var i = 0; i<length;i++){
+		indexMin = i;
+		for(var j =i; j<length;j++){
+			if(ary[indexMin] >  ary[j]){
+				indexMin = j;  // 找到 最小的index
+			}
+		};
+		if(indexMin != i){
+			[ary[i],ary[indexMin]] = [ary[indexMin],ary[i]];
+		}
+	}
+}
+// 插入排序
+// 插入排序每次排一个数组项 以此方式构建最后的排序数组
+var insertSort = function(ary){
+	var length = ary.length,i,j,temp;
+	for(i = 1;i<length;i++){
+		j = i;
+		temp = ary[i];
+		while( j>0 && ary[j-1] > temp ){
+			ary[j] = ary[j-1];
+			j--;
+		}
+		ary[j] = temp;
+	}
+}
+// 归并排序
+// 归并排序时间复杂度 为 O（nlogn）
+// 归并算法 是一种分治算法，其思想是将算是数组切成较小的数组，直至每个小数组只有一个位置，接着将小数组归并为较大的数组，直至最后只有一个排序完毕的大数组
+var mergeSort= function(ary){
+	var _ary = mergeSortRec(ary);
+	return _ary;
+}
+var mergeSortRec = function(ary){
+	var length = ary.length;
+	if(length === 1){
+		return ary;
+	}
+	var mid = Math.floor(length/2),
+	left = ary.splice(0,mid);
+	right = ary.splice(mid,length);
+	return merge(mergeSortRec(left),mergeSortRec(right));
+}
+var merge = function(left,right){
+	var result = [],
+	il = 0,ir = 0;
+	while(il <left.length && ir<right.length){
+		if(left[il] < right[ir]){
+			result.push(left[il++]);
+		}else{
+			result.push(right[ir++]);
+		}
+	}
+	while(il < left.length){
+		result.push(left[il++]);
+	}
+	while(ir < right.length){
+		result.push(right[ir++]);
+	}
+	return result;
+}
 
 
 
