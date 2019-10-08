@@ -651,6 +651,21 @@ function BinarySearchTree(){
 } 
 
 
+// 排序算法
+// 冒泡排序 算法
+
+var bubbleSort = function (ary){
+	var length = ary.length;
+	for(var i = 0;i <length; i++){
+		for(var j =i; j<length; j++ ){
+			if(ary[j] > ary[j++]){
+				[ary[j++],ary[j]] = [ary[j],ary[j++]];
+			}
+			
+		}
+	}
+}
+
 
 
 
