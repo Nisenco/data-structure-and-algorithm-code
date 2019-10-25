@@ -371,7 +371,52 @@ function Set(){
 		}
 	}
 }
+// 字典 和散列表都是用来存储唯一值（不重复）的数据结构
+function Dictionary(){
+	var items = {};
+	this.has = function(key){
+		return key in items;
+	};
+	this.set = function(key,value){
+		items[key] = value;
+	}
+	this.delete = function(key){
+		if(this.has(key)){
+			delete item[key];
+			return true;
+		}
+		return false;
+	}
+	this.get = function(key){
+		return this.has(key) ? items[key]: undefined;
+	}
+	this.values = function(){
+		return Object.values(items);
+	}
+	// 或者
+	// this.values = function(){
+	// 	var values = [];
+	// 	for(var key in item){
+	// 		if(this.has(key)){
+	// 			values.push(item[key]);
+	// 		}
+	// 	};
+	// 	return values;
+	// }
+	this.keys = function(){
+		return Object.keys(items);
+	}
+	this.clear = function(){
+		items = {};
+	}
+	this.size = function (){
+		return Object.keys(items).length;
+	}
+	this.getItems = function(){
+		return items;
+	}
 
+}
 // 散列函数  hashTable
 function HashTable(){
 	let table = [];
@@ -781,6 +826,148 @@ var binarySearch = function(ary,item){
 	}
 	return -1;
 }
+
+// 二叉树  复习
+function BinarySearchTree(){
+	var Node = function (key){
+		this.key = key;
+		this.left = null;
+		this.right = null;
+	};
+	var root = null;
+	this.insert = function(key){
+		var newNode = new Node(key);
+		if(root === null){
+			root  = newNode;
+		}else{
+			insertNode(root,newNode);
+		}
+	}
+	var insertNode = function (node,newNode){
+		if(newNode.key < node.key){
+			if(node.left === null){
+				node.left = newNode;
+			}else{
+				insertNode(node.left,newNode);
+			}
+		}else{
+			if(node.right === null){
+				node.right = newNode;
+			}else{
+				insertNode(node.right,newNode);
+			}
+		}
+	}
+
+	// 中序遍历 就是从小到大的顺序访问所有节点 一种应用是对树的排序操作 
+	this.inOrderTraverse = function (callback){
+		inOrderTraverseNode(root,callback);
+	}
+	var inOrderTraverseNode = function(node,callback){
+		if(node !== null){
+			inOrderTraverseNode(node.left,callback);
+			callback(node.key);
+			inOrderTraverseNode(node.right,callback);
+		}
+	}
+
+	// 先序遍历  就是优先于后代节点的顺序访问每个节点 先序遍历的一种应用是打印一个结构化的文档
+	this.preOrderTraverse = function(callback){
+		preOrderTraverseNode(root,callback);
+	};
+	var preOrderTraverseNode = function (node,callback){
+		if(node !== null){
+			callback(node.key);
+			preOrderTraverseNode(node.left,callback);
+			preOrderTraverseNode(node.right,callback);
+		}
+	}
+	// 后序遍历 就是先访问后代节点 然后在访问节点本身。 后序遍历的一种应用 就是计算一个目录和其子目录中所有文件所占的空间大小
+	this.postOrderTraverse = function(callback){
+		postOrderTraverseNode (root, callback);
+	}
+	var postOrderTraverseNode = function(node,callback){
+		if(node !== null){
+			postOrderTraverseNode(node.left,callback);
+			postOrderTraverseNode(node.right,callback);
+			callback(node.key);
+		}
+	}
+	//  获取树的最小节点
+	this.min = function(){
+		return minNode(root);
+	}
+	var minNode = function(node){
+		if(node){
+			while(node && node.left !== null){
+				node = node.left;
+			}
+			return node.key;
+		}
+		return null;
+	}
+	//  获取树的最大节点
+	this.max = function(){
+		return maxNode(node);
+	}
+	var maxNode = function(node){
+		if(node){
+			while(node && node.right !== null){
+				node = node.right;
+			}
+			return node.key;
+		}
+		return null;
+	}
+	// 搜索一个特定值
+	this.search = function(key){
+		return searchNode(root,key);
+	}
+	var searchNode = function (node,key){
+		if(node === null) return false;
+		if(node.key > key){
+			return searchNode(node.left,key);
+		}else if(node.key < key){
+			return searchNode(node.right,key);
+		}else{
+			return true;
+		}
+	}
+	// 移除一个节点
+	this.remove = function(key){
+		root  = removeNode(root ,key);
+	}
+	var removeNode = function (node,key){
+		if(node === null) return null;
+		// if(){
+
+		// }
+	}
+}
+//  数据结构 图 是一组由边 连接的 节点；
+// 图相关的概念 
+// 相邻顶点 由一条边连接在一起的顶点
+// 一个顶点的度  是其相邻顶点的数量 
+
+function Graph(){
+	var vertices = []; // 存放图中所有顶点的名字
+	var adjList = new Dictionary(); // 字典存储邻接表， 字典将会使用顶点的名字作为键，邻接顶点列表作为值
+	// 向图中添加一个新的顶点
+	this.addVertex = function(v){
+		vertices.push(v);
+		adjList.set(v,[]);
+	}
+	this.addEdge = function(v,w){
+		adjList.get(v).push(w);
+		adjList.get(w).push(v);
+	}
+	// this.toString = function(){
+
+	// }
+}
+// 图的遍历
+// 两种算法可以对图进行遍历 ： 广度优先（Breadth-First Search,BFS） 和 深度优先(Depth-First Search  DFS)
+// 图的遍历可以用来寻找 特定的顶点或 两个顶点之间的路径，检查图是否连通，检查是否含有环等
 
 
 
