@@ -348,27 +348,28 @@ function Set(){
 		}
 		return values;
 	}
-	// 并集
-	this.union = function(){
-		let unionSet = new Set();// 创建新的Set 实例
-		let values = this.values();
-		for(let i = 0;i<values.length;i++){
-			
-		}
+}
+// 并集
+var union = function(){
+	let unionSet = new Set();// 创建新的Set 实例
+	let values = this.values();
+	for(let i = 0;i<values.length;i++){
+		
 	}
-	// 子集
-	this.subset = function(otherSet){
-		let values = this.values();
-		if(this.size() > otherSet.size()){
-			return false;
-		}else{
-			for(let i = 0;i<values.length;i++){
-				if(!otherSet.has(values[i])){
-					return false;
-				}
+	return unionSet;
+}
+// 子集
+this.subset = function(otherSet){
+	let values = this.values();
+	if(this.size() > otherSet.size()){
+		return false;
+	}else{
+		for(let i = 0;i<values.length;i++){
+			if(!otherSet.has(values[i])){
+				return false;
 			}
-			return true;
 		}
+		return true;
 	}
 }
 // 字典 和散列表都是用来存储唯一值（不重复）的数据结构
