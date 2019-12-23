@@ -130,7 +130,7 @@ function LinkedList(){
 	let head = null;
 	// 向列表尾部添加一个新的项
 	this.append = function (element){
-		let node = new Node(element),;
+		let node = new Node(element);
 		if(head === null){
 			head = null;
 		}else{
@@ -426,17 +426,17 @@ function HashTable(){
 			hash +=key.chartCodeAt(i);
 		}
 		return hash % 37;
-	},
+	};
 	this.put = function(key,value){
 		var position = loseloseHashCode(key);
 		table[key] = value;
-	},
+	};
 	this.get = function(key){
 		return table[loseloseHashCode(key)];
-	},
+	};
 	this.remove = function(key){
 		table[loseloseHashCode(key)] = undefined;
-	}
+	};
 }
 
 // 使用了分离链接法来处理冲突的HashMap实例 散列表和散列集合
@@ -447,7 +447,7 @@ function separationLink(){
 			hash +=key.chartCodeAt(i);
 		}
 		return hash % 37;
-	},
+	};
 	var ValuePair = function(key,value){
 		this.key = key;
 		this.value = value;
@@ -461,7 +461,7 @@ function separationLink(){
 			table[position] = new LinkedList();
 		}
 		table[position].append(new ValuePair(key,value));
-	},
+	};
 	this.get = function(key){
 		// return table[loseloseHashCode(key)];
 		var position = loseloseHashCode(key);
@@ -480,7 +480,7 @@ function separationLink(){
 			}
 		}
 		return undefined;
-	},
+	};
 	this.remove = function(key){
 		var position = loseloseHashCode(key);
 		if(table[position] !== undefined){
@@ -517,14 +517,14 @@ function LinearDetection(){
 			hash +=key.chartCodeAt(i);
 		}
 		return hash % 37;
-	},
+	};
 	var ValuePair = function(key,value){
 		this.key = key;
 		this.value = value;
 		this.toString = function(){
 			return `[${this.key}-${this.value}]`;
 		}
-	},
+	};
 	this.put = function(key,value){
 		var position = loseloseHashCode(key);
 		if(table[position] == undefined){
@@ -536,7 +536,7 @@ function LinearDetection(){
 			}
 			table[index] = new ValuePair(key,value);
 		}
-	},
+	};
 	this.get = function(key){
 		var position = loseloseHashCode(key);
 		if(table[position] !== undefined){
@@ -554,7 +554,7 @@ function LinearDetection(){
 			
 		}
 		return undefined;
-	},
+	};
 	this.remove = function(key){
 		var position = loseloseHashCode(key);
 		if(table[position] !== undefined){
@@ -962,9 +962,31 @@ function Graph(){
 		adjList.get(v).push(w);
 		adjList.get(w).push(v);
 	}
-	// this.toString = function(){
-
-	// }
+	this.toString = function(){
+		var s = '';
+		for (var i = 0;i<vertices.length;i++) {
+			s += vertices[i] + '->';
+			var neighbors = adjList.get(vertices[i]);
+			for(var j=0;j<neighbors.length; j++){
+				s += neighbors[j] + '';
+			}
+			s += '\n';
+		}
+		return s;
+	}
+	// 白色：表示该顶点还没有被访问。
+	// 灰色：表示该顶点被访问过，但并未被探索过。
+	// 黑色：表示该顶点被访问过且被完全探索过
+	var initializeColor = function () {
+		var color = [];
+		for(var i = 0;i<vertices.length;i++){
+			color[vertices[i]] = 'white';
+		}
+		return color;
+	}
+	this.bfs = function(v,callback){
+		
+	}
 }
 // 图的遍历
 // 两种算法可以对图进行遍历 ： 广度优先（Breadth-First Search,BFS） 和 深度优先(Depth-First Search  DFS)
