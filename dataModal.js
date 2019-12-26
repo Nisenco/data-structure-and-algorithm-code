@@ -970,7 +970,7 @@ function Graph(){
 			for(var j=0;j<neighbors.length; j++){
 				s += neighbors[j] + '';
 			}
-			s += '\n';
+			s += '<br/>';
 		}
 		return s;
 	}
@@ -985,7 +985,25 @@ function Graph(){
 		return color;
 	}
 	this.bfs = function(v,callback){
-		
+		var color = initializeColor();
+		var queue = new Queue(); // 创建队列
+		queue.enqueue(v);// 节点放入队列中
+		while(!queue.isEmpty()){
+			var u = queue.dequeue(),// 弹出队列的第一个元素
+			neighbors = adjList.get(u);
+			color[u] = 'grey';
+			for(var i = 0;i<neighbors.length;i++){
+				var w = neighbors[i];
+				if(color[w]  === 'white'){
+					color[w] = 'grey';
+					queue.enqueue(w);
+				}
+			}
+			color[u] = 'black';
+			if(callback){
+				callback(u);
+			}
+		}
 	}
 }
 // 图的遍历
