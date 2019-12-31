@@ -974,9 +974,9 @@ function Graph(){
 		}
 		return s;
 	}
-	// 白色：表示该顶点还没有被访问。
-	// 灰色：表示该顶点被访问过，但并未被探索过。
-	// 黑色：表示该顶点被访问过且被完全探索过
+	// 白色：表示该顶点还没有被访问。white
+	// 灰色：表示该顶点被访问过，但并未被探索过。grey
+	// 黑色：表示该顶点被访问过且被完全探索过 black
 	var initializeColor = function () {
 		var color = [];
 		for(var i = 0;i<vertices.length;i++){
@@ -1004,6 +1004,95 @@ function Graph(){
 				callback(u);
 			}
 		}
+	}
+	// 改进后的 广度搜索算法
+	this.BFS = function(v){
+		var color = initializeColor();
+		var queue = new Queue(),
+		d=[],
+		pre = [];
+		queue.enqueue(v); // 源顶点放到队列中
+		for(var i = 0;i<vertices.length;i++){
+			d [vertices[i]] = 0;
+			pre [vertices[i]] = null;
+		}
+		while(!queue.isEmpty()){
+			var u = queue.dequeue();
+			var neighbors = adjList.get(u);
+			color[u] = 'grey';
+			for(var j = 0;j<neighbors.length;j++){
+				var w = neighbors[j];
+				if(color[w] === 'white'){
+					color[w] = 'grey';
+					d[w] = d[u]+1;
+					pre [w] = u;
+					queue.enqueue(w);
+				}
+			}
+			color[u] = 'black';
+		}
+		return {
+			distances: d,
+			predecessors: pre
+		}
+	}
+	// 深度优先搜索算法
+	this.dfs = function(callback){
+		var color = initializeColor();
+		for(var i=0;i<vertices.length;i++){
+			if(color[vertices[i]] === 'white' ){
+				dfsVisit(vertices[i],color,callback);
+			}
+		}
+	}
+	var dfsVisit = function(u,color,callback){
+		color[u] = 'grey';
+		if(callback){
+			callback(u);
+		}
+		var neighbors  =adjList.get(u);
+		for(var i=0;i<neighbors.length;i++){
+			var w = neighbors[i];
+			if(color[w] === 'white'){
+				dfsVisit(w,color,callback);
+			}
+		}
+		color[u] = 'black';
+	}
+	// 改进的DFS
+	var time = 0;
+	this.DFS = function(){
+		var color = initializeColor(),
+		p = [],d=[],f=[];
+		for(var i =0;i<vertices.length;i++){
+			p[vertices[i]] = null;
+			d[vertices[i]] = 0;
+			f[vertices[i]] = 0;
+		}
+		for(i =0;i<vertices.length;i++){
+			if(color[vertices[i]] === 'white'){
+				DFSVisit(vertices[i], color, d, f, p);
+			}
+		}
+		return {
+			discovery: d,
+			finished: f,
+			predecessors: p
+		}
+	}
+	function DFSVisit (u,color,d,f,p){
+		console.log('discovery',u);
+		color[u] = 'grey';
+		d[u] = ++time;
+		var neighbors = adjList.get(u);
+		for(var i = 0;i<neighbors.length;i++){
+			if(color[neighbors[i]] == 'white'){
+				DFSVisit(neighbors[i],color,d,f,p);
+			}
+		}
+		f[u] = ++ time;
+		color[u] = 'black';
+		console.log('explored ' + u);
 	}
 }
 // 图的遍历

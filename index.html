@@ -21,10 +21,13 @@
 			graph.addEdge('B', 'F');
 			graph.addEdge('E', 'I');
 			var ele = document.getElementById('test');
-			graph.bfs('H',(a)=>{
-				console.log(a,'-----');
+			// graph.bfs('H',(a)=>{
+			// 	console.log(a,'-----');
+			// });
+			graph.dfs((node)=>{
+				console.log(node,'----');
 			});
-			ele.innerHTML = graph.toString();
+			// ele.innerHTML = shortestPathA;
 		}
 	</script>
 	<body>
