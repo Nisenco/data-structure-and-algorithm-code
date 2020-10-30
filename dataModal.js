@@ -1,3 +1,8 @@
+// 判断奇数偶数
+function isEven(x){
+	return x % 2 === 0;
+}
+
 //  栈
 function Stack () {
 	let items = [];
