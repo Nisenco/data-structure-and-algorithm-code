@@ -33,7 +33,80 @@ function Stack () {
 		console.log(items);
 	}
 }
-function divideBy2(decNumber){
+//  class 实现的Stack
+class Stack {
+	constructor(){
+		this.items= [];
+	}
+	push(ele){
+		this.items.push(ele);
+	}
+	pop(){
+		return this.item.pop();
+	}
+	// 查看栈顶
+	peek(){
+		return this.items[this.items.length-1]
+	}
+	isEmpty(){
+		return this.items.length === 0;
+	}
+	size(){
+		return this.items.length;
+	}
+	clear(){
+		this.items=[];
+	}
+}
+// 创建基于javascript对象的stack 类
+class Stack{
+	constructor(){
+		this.count = 0;
+		this.items = {};
+	}
+	push(ele){
+		this.items[this.count] = ele;
+		this.count++;
+	}
+	size(){
+		return this.count;
+	}
+	isEmpty(){
+		return this.count === 0;
+	}
+	pop(){
+		if(this.isEmpty()){
+			return undefined;
+		}
+		this.count--;
+		const result = this.items[this.count];
+		delete this.items[this.count];
+		return result;
+	}
+	// 查看栈顶
+	peek(){
+		if(this.isEmpty()){
+			return undefined;
+		}
+		return this.items[this.count-1];
+	}
+	clear(){
+		this.count = 0;
+		this.items = {};
+	}
+	toString() {
+	    if (this.isEmpty()) {
+	        return undefined;
+	    }
+	    let objString = `${this.items[0]}`;
+	    for (let i = 1; i < this.count; i++) { 
+	        objString = `${objString},${this.items[i]}`;
+	    }
+	    return objString;
+	}
+}
+// 十进制转化为二进制
+function decimalToBinary(decNumber){
 	var remStack = new Stack(),rem,binaryString = '';
 	while(decNumber >0){
 		rem = Matn.floor(decNumber%2);
@@ -45,7 +118,55 @@ function divideBy2(decNumber){
 	}
 	return binaryString;
 }
+console.log(decimalToBinary(8));
 
+// 进制转换算法
+// 十进制转换成基数为 2～ 36 的任意进制
+function baseConverter(decNumber, base) {
+    const remStack = new Stack();
+    const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let number = decNumber;
+    let rem;
+    let baseString = '';
+    if (!(base < 2 && base > 36)) {
+        return '';
+    }
+    while (number > 0) {
+        rem = Math.floor(number % base);
+        remStack.push(rem);
+        number = Math.floor(number / base);
+    }
+    while(!remStack.isEmpty()){
+		baseString += digits[remStack.pop()];
+	}
+	return baseString;
+}
+// 平衡括号 栈实现
+
+function parenthesesChecker(symbols){
+	const stack = new Stack();
+	const opens = "([{";
+	const closer = ')]}';
+	let balanced = true;
+	let index = 0;
+	let symbol;
+	let top;
+	while (index< symbols.length && balanced) {
+		symbol = symbols[index];
+		if(opens.indexOf(symbol) >= 0){
+			stack.push(symbol);
+		}else if(stack.isEmpty()){
+			balanced = false;
+		}else {
+			top = stack.pop();
+			if(!(opens.indexOf(top) === closer.indexOf(symbol))){
+            	balanced = false;
+			}
+		}
+		index++;
+	}
+	return balanced && stack.isEmpty();
+}
 // 队列
 function Queue(){
 	let items = [];
