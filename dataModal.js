@@ -257,8 +257,9 @@ function LinkedList(){
 	// 向列表尾部添加一个新的项
 	this.append = function (element){
 		let node = new Node(element);
+		let current;
 		if(head === null){
-			head = null;
+			head = node;
 		}else{
 			current = head;
 			// 循环列表 ，直到找到最后一项
@@ -369,7 +370,7 @@ function DoublyLinkedList (){
 	let tail = null;
 	this.insert = function(position,element){
 		// 检查值是否越界
-		if(position >= 0 && position <= element){
+		if(position >= 0 && position <= length){
 			let node = new Node(element),current = head,previous,index = 0;
 			if(position == 0){ // 在第一个位置添加
 				if(!head){
