@@ -466,7 +466,7 @@ function Set(){
 	this.size = function(){
 		return Object.keys(items).length;
 	}
-	this.value = function(){
+	this.values = function(){
 		let values = [];
 		for(let key in items){
 			if(items.hasOwnProperty(key)){
@@ -475,30 +475,58 @@ function Set(){
 		}
 		return values;
 	}
-}
-// 并集
-var union = function(){
-	let unionSet = new Set();// 创建新的Set 实例
-	let values = this.values();
-	for(let i = 0;i<values.length;i++){
-		
-	}
-	return unionSet;
-}
-// 子集
-this.subset = function(otherSet){
-	let values = this.values();
-	if(this.size() > otherSet.size()){
-		return false;
-	}else{
+	// 集合的操作
+	// 并集 对于给定的两个集合，返回一个包含两个集合中所有元素的新集合。
+	this.union = function(otherSet){
+		let unionSet = new Set();// 创建新的Set 实例
+		let values = this.values();
 		for(let i = 0;i<values.length;i++){
-			if(!otherSet.has(values[i])){
-				return false;
+			unionSet.add(values[i]);
+		}
+		values = otherSet.values();
+		for(let i=0;i<values.length;i++){
+			unionSet.add(values[i]);
+		}
+		return unionSet;
+	}
+	// 交集 对于给定的两个集合，返回一个包含两个集合中共有元素的新集合
+	this.intersection = function(otherSet){
+		let intersectionSet = new Set();
+		var values = this.values();
+		for(let i = 0;i< values.length;i++){
+			if(otherSet.has(values[i])){
+				intersectionSet.add(values[i]);
 			}
 		}
-		return true;
+		return intersectionSet;
+	}
+	// 差集 对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的元素的新集合
+	this.difference = function(otherSet){
+		let differenceSet = new Set();
+		let values = this.values();
+		for(let i= 0;i<values.length;i++){
+			if(!otherSet.has(values[i])){
+				differenceSet.add(values[i]);
+			}
+		}
+		return differenceSet;
+	}
+	// 子集 验证一个给定集合是否是另一集合的子集
+	this.subset = function(otherSet){
+		let values = this.values();
+		if(this.size() > otherSet.size()){
+			return false;
+		}else{
+			for(let i = 0;i<values.length;i++){
+				if(!otherSet.has(values[i])){
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 }
+
 // 字典 和散列表都是用来存储唯一值（不重复）的数据结构
 function Dictionary(){
 	var items = {};
