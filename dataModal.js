@@ -528,6 +528,7 @@ function Set(){
 }
 
 // 字典 和散列表都是用来存储唯一值（不重复）的数据结构
+// 字典和集合很相似，集合以[值，值]的形式存储元素，字典则是以[键，值]的形式来存储元素。字典也称作映射。
 function Dictionary(){
 	var items = {};
 	this.has = function(key){
