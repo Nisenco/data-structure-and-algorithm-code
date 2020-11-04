@@ -666,6 +666,9 @@ function separationLink(){
 }
 
 // 线性探查法 HashMap 冲突
+// 当想向表中某个位置加入一个新元素的时候，如果索引
+// 为index的位置已经被占据了，就尝试index+1的位置。如果index+1的位置也被占据了，就尝试
+// index+2的位置，以此类推。
 function LinearDetection(){
 	let table = [];
 	var loseloseHashCode = function(key){
@@ -715,14 +718,14 @@ function LinearDetection(){
 		var position = loseloseHashCode(key);
 		if(table[position] !== undefined){
 			if(table[position].key == key){
-				return undefined;
+				return table[position] = undefined;
 			}else{
 				var index = ++position;
 				while(table[index] === undefined || table[index].key !== key){
 					index++;
 				}	
 				if(table[index].key === key){
-					return undefined;
+					return table[index] = undefined;
 				}
 			}
 			
@@ -730,6 +733,13 @@ function LinearDetection(){
 		return undefined;
 	}
 }
+var djb2HashCode = function(key) {
+    var hash = 5381; //{1}
+    for (var i = 0; i < key.length; i++) { //{2}
+        hash = hash * 33 + key.charCodeAt(i); //{3}
+    }
+    return hash % 1013; //{4}
+};
 //  二叉搜索树
 function BinarySearchTree(){
 	var Node = function(key){
