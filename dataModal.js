@@ -1367,6 +1367,61 @@ function ArrayList(){
 		}
 		return result;
 	}
+	// 快速排序 它的复杂度为O(nlogn)，且它的性能通常比其他的复杂度为O(nlogn)的排序算法要好
+	// 和归并排序一样，快速排序也使用分治的方法，将原始数组分为较小的数组
+	this.quickSort = function(){
+		quick(array,0,array.length-1);
+	}
+	var quick = function(array,left,right){
+		var index;
+		if(array.length > 1 ){
+			index = partition(array,left,right);
+			if(left<index-1){
+				quick(array,left,index-1);
+			}
+			if(left < right){
+				quick(array,left,right);
+			}
+		}
+	}
+	var partition = function((array,left,right){
+		var pivot = array[Math.floor((left+right)/2)],
+		i = left,
+		j = right;
+		while(i<=j){
+			while(array[i] < pivot){
+				i++;
+			}
+			while(array[j] > pivot){
+				j--;
+			}
+			if(i <= j){
+				swap(i,j);
+				i++;
+				j--;
+			}
+		}
+		return i;
+	}
+	// 二分查找 
+	this.binarySearch = function(item){
+		this.quickSort();
+		var low = 0,
+		high = array.length -1,
+		mid,element;
+		whild(low <= height){
+			mid = Math.floor((low + high) /2);
+			element = array[mid];
+			if(element < item){
+				low = mid + 1;
+			}else if(element > item) {
+				high = mid -1;
+			}else {
+				return mid;
+			}
+		}
+		return -1;
+	}
 }
 
 
