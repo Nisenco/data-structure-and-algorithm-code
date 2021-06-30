@@ -698,3 +698,95 @@ const combine = function(n,k){
     }
     return res;
 }
+
+// 题目描述：给定一个二叉树，返回它的前序（先序）遍历序列。
+// 输入: [1,null,2,3]
+
+// 1   
+//  \   
+//   2   
+//  /  
+// 3 
+// 输出: [1,2,3]
+// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+// 先序遍历迭代实现
+const preorderTraversal = function(root) {
+    const res = [];
+    if(!root){
+        return res;
+    }
+    const stack = [];
+    stack.push(root);
+    while(stack.length){
+        const cur = stack.pop();
+        res.push(cur.val);
+        if(cur.right){
+            stack.push(cur.right);
+        }
+        if(cur.left){
+            stack.push(cur.left);
+        }
+    }
+    return res;
+}
+// 后序遍历迭代实现
+const postorderTraversal = function(root){
+    const res = [];
+    const stack = [];
+    while (stack.length){
+        const cur = stack.pop();
+        res.unshift(cur.val);
+        if(cur.right){
+            stack.push(cur.right);
+        }
+        if(cur.left){
+            stack.push(cur.left);
+        }
+    }
+    return res;
+}
+
+// 题目描述：给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
+
+// 示例：
+
+// 二叉树：[3,9,20,null,null,15,7],
+
+//   3
+//  / \
+// 9  20
+//   /  \
+//  15   7
+// 返回其层次遍历结果：
+
+// [
+// [3],
+// [9,20],
+// [15,7]
+// ]
+
+const levelOrder = function(root){
+    const res = [];
+    if(!root){
+        return res;
+    }
+    const queue = [];
+    queue.push(root);
+    while(queue.length){
+        const level = [];
+        const len = queue.length;
+        for(let i = 0;i<len;i++){
+            const top = queue.shift();
+            level.push(top.val);
+            if(top.left){
+                queue.push(top.left)
+            }
+            if(top.right){
+                queue.push(top.right);
+            }
+        }
+        res.push(level)
+    }
+    return res;
+}
