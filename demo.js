@@ -790,3 +790,103 @@ const levelOrder = function(root){
     }
     return res;
 }
+
+// 翻转二叉树
+const invertTree = function(root) {
+    if(!root){
+        return root;
+    }
+    let right = invertTree(root.right);
+    let left = invertTree(root.left);
+    root.right = left;
+    root.left = right;
+    return root;
+}
+
+// 二叉搜索树（ BST）
+const search = function(root,n){
+    if(!root){
+        return ;
+    }
+    if(root.val === n){
+        console.log('目标结果',root);
+    }else if(root.val>n){
+        search(root.left,n);
+    }else{
+        search(root.right,n);
+    }
+}
+function TreeNode(val=0, left=null, right=null) {
+    this.val =  val;
+    this.left = left;
+    this.right =  right;
+}
+const insertIntoBST = function(root,n){
+    if(!root){
+        root = new TreeNode(n);
+        return root;
+    }
+    if(root.val > n){
+        root.left = insertIntoBST(root.left,n);
+    }else{
+        root.right = insertIntoBST(root.right,n);
+    }
+    return root;
+}
+
+// 想要删除某个结点，首先要找到这个结点。在定位结点后，我们需要考虑以下情况：
+
+// 结点不存在，定位到了空结点。直接返回即可。
+// 需要删除的目标结点没有左孩子也没有右孩子——它是一个叶子结点，删掉它不会对其它结点造成任何影响，直接删除即可。
+// 需要删除的目标结点存在左子树，那么就去左子树里寻找小于目标结点值的最大结点，用这个结点覆盖掉目标结点
+// 需要删除的目标结点存在右子树，那么就去右子树里寻找大于目标结点值的最小结点，用这个结点覆盖掉目标结点
+// 需要删除的目标结点既有左子树、又有右子树，这时就有两种做法了：要么取左子树中值最大的结点，要么取右子树中取值最小的结点。两个结点中任取一个覆盖掉目标结点，都可以维持二叉搜索树的数据有序性
+const deleteNode = function(root,n){
+    if(!root){
+        return root;
+    }
+    if(root.val === n){
+        if(!root.left && !root.right){
+            root = null;
+        }else if(root.left){
+            const maxLeft = findMax(root.left);
+            root.val = maxLeft.val;
+            root.left = deleteNode(root.left,maxLeft.val);
+        }else{
+            const minRight = findMin(root.right)
+            // 用这个 minRight 覆盖掉需要删除的当前结点  
+            root.val = minRight.val
+            // 覆盖动作会消耗掉原有的 minRight 结点
+            root.right = deleteNode(root.right, minRight.val)
+        }
+    }else if(root.val>n){
+        root.left = deleteNode(root.left, n)
+    }else{
+        root.right = deleteNode(root.right, n)
+    }
+    return root;
+}
+const findMax = function(root){
+    while(root.right){
+        root = root.right
+    }
+    return root;
+}
+const findMin = function(root){
+    while(root.left){
+        root = root.left;
+    }
+    return root;
+}
+
+// 题目描述：给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+let isValidBST = function (root) {
+    function dfs(root, minValue, MaxValue) {
+        if (!root) {
+            return true;
+        }
+        if (root.val < minValue || root.val > maxValue) { return false }
+        return dfs(root.left, minValue, root.val) && dfs(root.right, root.val, MaxValue)
+    }
+    return dfs(root, -Infinity, Infinity);
+}
