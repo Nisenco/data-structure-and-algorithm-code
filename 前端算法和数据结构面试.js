@@ -6,7 +6,7 @@
 
 // 给定 nums = [2, 7, 11, 15], target = 9
 // 因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1]
-var twoSum = function(ary, target) {
+var twoSum = function (ary, target) {
     let result = {};
     let current;
     ary.map((value, index) => {
@@ -31,7 +31,7 @@ var twoSum = function(ary, target) {
 // nums1 = [1,2,3,0,0,0], m = 3
 // nums2 = [2,5,6], n = 3
 // 输出: [1,2,2,3,5,6]
-var merge = function(num1, m, num2, n) {
+var merge = function (num1, m, num2, n) {
     let i = m - 1,
         j = n - 1,
         k = m + n - 1;
@@ -142,11 +142,11 @@ function isPalindrome(str) {
 // 解释: 你可以删除c字符。
 // 注意: 字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。
 
-var validPalindrome = function(s) {
+var validPalindrome = function (s) {
     const len = s.length;
     let i = 0,
         j = len - 1;
-    while(i < j && s[i] === s[j]) {
+    while (i < j && s[i] === s[j]) {
         i++;
         j--;
     }
@@ -190,10 +190,10 @@ var validPalindrome = function(s) {
 // 说明:
 // 你可以假设所有单词都是由小写字母 a-z 组成的
 
-const WordDictionary = function() {
+const WordDictionary = function () {
     this.words = {};
 }
-WordDictionary.prototype.addWord = function(word) {
+WordDictionary.prototype.addWord = function (word) {
     if (this.words[word.length]) {
         this.words[word.length].push(word);
     } else {
@@ -201,7 +201,7 @@ WordDictionary.prototype.addWord = function(word) {
     }
 };
 
-wordDictionary.prototype.search = function(word) {
+wordDictionary.prototype.search = function (word) {
     if (!this.words[word.length]) {
         return false;
     }
@@ -229,7 +229,7 @@ function ListNode(value) {
     this.next = null;
 }
 
-const mergeTwoLists = function(l1, l2) {
+const mergeTwoLists = function (l1, l2) {
     let head = new ListNode();
     let cur = head;
     while (l1 && l2) {
@@ -248,7 +248,7 @@ const mergeTwoLists = function(l1, l2) {
 
 // 真题描述：给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
 
-const deleteDuplicates = function(head) {
+const deleteDuplicates = function (head) {
     let cur = head;
     while (cur != null && cur.next != null) {
         if (cur.value == cur.next.value) {
@@ -266,7 +266,7 @@ const deleteDuplicates = function(head) {
 // 输入: 1->2->3->3->4->4->5
 // 输出: 1->2->5
 
-const deleteDuplicates2 = function(head) {
+const deleteDuplicates2 = function (head) {
     if (!head || !head.next) {
         return head;
     }
@@ -298,7 +298,7 @@ const deleteDuplicates2 = function(head) {
 // 给定一个链表: 1->2->3->4->5, 和 n = 2.
 // 当删除了倒数第二个结点后，链表变为 1->2->3->5.
 
-const removeNthFromEnd = function(head, n) {
+const removeNthFromEnd = function (head, n) {
     let dumy = new ListNode();
     dumy.next = head;
 
@@ -326,7 +326,7 @@ const removeNthFromEnd = function(head, n) {
 // 输入: 1->2->3->4->5->NULL
 // 输出: 5->4->3->2->1->NULL
 
-const reverseList = function(head) {
+const reverseList = function (head) {
     let pre = null;
     let cur = head;
     while (cur != null) {
@@ -351,7 +351,7 @@ const reverseList = function(head) {
 // 输入: 1->2->3->4->5->NULL, m = 2, n = 4
 // 输出: 1->4->3->2->5->NULL
 
-const reverseBetween = function(head, m, n) {
+const reverseBetween = function (head, m, n) {
     let pre, cur, leftHead;
     const dumy = new ListNode();
     dumy.next = head;
@@ -403,7 +403,7 @@ findlowestString('aabbc')
 
 // 入参是头结点 
 
-const hasCycle = function(head) {
+const hasCycle = function (head) {
     while (head) {
         if (head.flag) {
             return true;
@@ -419,7 +419,7 @@ const hasCycle = function(head) {
 
 // 真题描述：给定一个链表，返回链表开始入环的第一个结点。 如果链表无环，则返回 null。
 
-const detectCycle = function(head) {
+const detectCycle = function (head) {
     while (head) {
         if (head.flag) {
             return head;
@@ -448,7 +448,7 @@ const leftToRight = {
     "{": "}"
 };
 
-const isValid = function(s) {
+const isValid = function (s) {
     if (!s) {
         return true;
     }
@@ -472,7 +472,7 @@ const isValid = function(s) {
 // 题目描述: 根据每日气温列表，请重新生成一个列表，对应位置的输出是需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用 0 来代替。
 
 // 例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1, 0, 0]。
-const dailyTemperatures = function(T) {
+const dailyTemperatures = function (T) {
     const len = t.length;
     const stack = [];
     const res = (new Array(len)).fill(0);
@@ -487,24 +487,24 @@ const dailyTemperatures = function(T) {
 }
 
 // 题目描述：设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。(push,pop,top,getMin)
-const minStick = function() {
+const minStick = function () {
     this.stack = [];
 }
-minStick.prototype.pop = function() {
+minStick.prototype.pop = function () {
     return this.stack.pop();
 }
 
-minStick.prototype.push = function(value) {
+minStick.prototype.push = function (value) {
     this.stack.push(value);
 }
-minStick.prototype.top = function() {
+minStick.prototype.top = function () {
     if (!this.stack || !this.stack.length) {
         return;
     };
     return this.stack[this.stack.length - 1];
 }
 // 此方法的时间复杂度为 n
-minStick.prototype.getMin = function() {
+minStick.prototype.getMin = function () {
     let minValue = Infinity;
     let len = this.stack.length;
     for (let i = 0; i < len; i++) {
@@ -525,15 +525,15 @@ minStick.prototype.getMin = function() {
 // peek() -- 返回队列首部的元素。
 // empty() -- 返回队列是否为空。
 
-const MyQueue = function() {
+const MyQueue = function () {
     this.stack1 = [];
     this.stack2 = [];
 }
 
-MyQueue.prototype.push = function(x) {
+MyQueue.prototype.push = function (x) {
     this.stack1.push(x);
 }
-MyQueue.prototype.pop = function() {
+MyQueue.prototype.pop = function () {
     if (this.stack2.length <= 0) {
         while (this.stack1.length !== 0) {
             this.stack2.push(this.stack1.pop());
@@ -541,7 +541,7 @@ MyQueue.prototype.pop = function() {
     }
     return this.stack2.pop();
 }
-MyQueue.prototype.peek = function() {
+MyQueue.prototype.peek = function () {
     if (this.stack2.length <= 0) {
         while (this.stack1.length != 0) {
             this.stack2.push(this.stack1.pop());
@@ -550,7 +550,7 @@ MyQueue.prototype.peek = function() {
     const stack2Len = this.stack2.length;
     return stack2Len && this.stack2[stack2Len - 1];
 };
-MyQueue.prototype.empty = function() {
+MyQueue.prototype.empty = function () {
     return !this.stack1.length && !this.stack2.length;
 }
 
@@ -561,7 +561,7 @@ MyQueue.prototype.empty = function() {
 // 输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3 输出: [3,3,5,5,6,7]
 
 // 1 双指针+遍历法
-let maxSlidingWindow = function(nums, k) {
+let maxSlidingWindow = function (nums, k) {
     const len = nums.length;
     const res = [];
     let left = 0;
@@ -589,7 +589,7 @@ function calMax(arr, left, right) {
 }
 
 // 双端队列法
-let maxSlidingWindow = function(nums, k) {
+let maxSlidingWindow = function (nums, k) {
     const len = nums.length;
     const res = [];
     const deque = [];
@@ -622,7 +622,7 @@ let maxSlidingWindow = function(nums, k) {
 // [3,1,2],
 // [3,2,1]
 // ]
-let permute = function(nums) {
+let permute = function (nums) {
     const len = nums.length;
     const curr = [];
     const res = [];
@@ -664,16 +664,16 @@ function BFS(root) {
 }
 // 题目描述：给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
 // 说明：解集不能包含重复的子集。
-const subsets = function(nums){
+const subsets = function (nums) {
     const res = [];
     const len = nums.length;
-    const  subset = [];
+    const subset = [];
     dfs(0);
     function dfs(index) {
         res.push(subset.slice());
-        for(let i = index;i<len;i++){
+        for (let i = index; i < len; i++) {
             subset.push(nums[index]);
-            dfs(i+1);
+            dfs(i + 1);
             subset.pop();
         }
     }
@@ -681,18 +681,18 @@ const subsets = function(nums){
 }
 
 // 题目描述：给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
-const combine = function(n,k){
+const combine = function (n, k) {
     const res = [];
     const subset = [];
     dfs(1);
-    function dfs(index){
-        if(subset.length == k){
+    function dfs(index) {
+        if (subset.length == k) {
             res.push(subset.slice());
             return;
         }
-        for(let i = index;i<n;i++){
+        for (let i = index; i < n; i++) {
             subset.push(i);
-            dfs(i+1);
+            dfs(i + 1);
             subset.pop();
         }
     }
@@ -711,36 +711,36 @@ const combine = function(n,k){
 // 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
 
 // 先序遍历迭代实现
-const preorderTraversal = function(root) {
+const preorderTraversal = function (root) {
     const res = [];
-    if(!root){
+    if (!root) {
         return res;
     }
     const stack = [];
     stack.push(root);
-    while(stack.length){
+    while (stack.length) {
         const cur = stack.pop();
         res.push(cur.val);
-        if(cur.right){
+        if (cur.right) {
             stack.push(cur.right);
         }
-        if(cur.left){
+        if (cur.left) {
             stack.push(cur.left);
         }
     }
     return res;
 }
 // 后序遍历迭代实现
-const postorderTraversal = function(root){
+const postorderTraversal = function (root) {
     const res = [];
     const stack = [];
-    while (stack.length){
+    while (stack.length) {
         const cur = stack.pop();
         res.unshift(cur.val);
-        if(cur.right){
+        if (cur.right) {
             stack.push(cur.right);
         }
-        if(cur.left){
+        if (cur.left) {
             stack.push(cur.left);
         }
     }
@@ -766,23 +766,23 @@ const postorderTraversal = function(root){
 // [15,7]
 // ]
 
-const levelOrder = function(root){
+const levelOrder = function (root) {
     const res = [];
-    if(!root){
+    if (!root) {
         return res;
     }
     const queue = [];
     queue.push(root);
-    while(queue.length){
+    while (queue.length) {
         const level = [];
         const len = queue.length;
-        for(let i = 0;i<len;i++){
+        for (let i = 0; i < len; i++) {
             const top = queue.shift();
             level.push(top.val);
-            if(top.left){
+            if (top.left) {
                 queue.push(top.left)
             }
-            if(top.right){
+            if (top.right) {
                 queue.push(top.right);
             }
         }
@@ -792,8 +792,8 @@ const levelOrder = function(root){
 }
 
 // 翻转二叉树
-const invertTree = function(root) {
-    if(!root){
+const invertTree = function (root) {
+    if (!root) {
         return root;
     }
     let right = invertTree(root.right);
@@ -804,32 +804,32 @@ const invertTree = function(root) {
 }
 
 // 二叉搜索树（ BST）
-const search = function(root,n){
-    if(!root){
-        return ;
+const search = function (root, n) {
+    if (!root) {
+        return;
     }
-    if(root.val === n){
-        console.log('目标结果',root);
-    }else if(root.val>n){
-        search(root.left,n);
-    }else{
-        search(root.right,n);
+    if (root.val === n) {
+        console.log('目标结果', root);
+    } else if (root.val > n) {
+        search(root.left, n);
+    } else {
+        search(root.right, n);
     }
 }
-function TreeNode(val=0, left=null, right=null) {
-    this.val =  val;
+function TreeNode(val = 0, left = null, right = null) {
+    this.val = val;
     this.left = left;
-    this.right =  right;
+    this.right = right;
 }
-const insertIntoBST = function(root,n){
-    if(!root){
+const insertIntoBST = function (root, n) {
+    if (!root) {
         root = new TreeNode(n);
         return root;
     }
-    if(root.val > n){
-        root.left = insertIntoBST(root.left,n);
-    }else{
-        root.right = insertIntoBST(root.right,n);
+    if (root.val > n) {
+        root.left = insertIntoBST(root.left, n);
+    } else {
+        root.right = insertIntoBST(root.right, n);
     }
     return root;
 }
@@ -841,39 +841,39 @@ const insertIntoBST = function(root,n){
 // 需要删除的目标结点存在左子树，那么就去左子树里寻找小于目标结点值的最大结点，用这个结点覆盖掉目标结点
 // 需要删除的目标结点存在右子树，那么就去右子树里寻找大于目标结点值的最小结点，用这个结点覆盖掉目标结点
 // 需要删除的目标结点既有左子树、又有右子树，这时就有两种做法了：要么取左子树中值最大的结点，要么取右子树中取值最小的结点。两个结点中任取一个覆盖掉目标结点，都可以维持二叉搜索树的数据有序性
-const deleteNode = function(root,n){
-    if(!root){
+const deleteNode = function (root, n) {
+    if (!root) {
         return root;
     }
-    if(root.val === n){
-        if(!root.left && !root.right){
+    if (root.val === n) {
+        if (!root.left && !root.right) {
             root = null;
-        }else if(root.left){
+        } else if (root.left) {
             const maxLeft = findMax(root.left);
             root.val = maxLeft.val;
-            root.left = deleteNode(root.left,maxLeft.val);
-        }else{
+            root.left = deleteNode(root.left, maxLeft.val);
+        } else {
             const minRight = findMin(root.right)
             // 用这个 minRight 覆盖掉需要删除的当前结点  
             root.val = minRight.val
             // 覆盖动作会消耗掉原有的 minRight 结点
             root.right = deleteNode(root.right, minRight.val)
         }
-    }else if(root.val>n){
+    } else if (root.val > n) {
         root.left = deleteNode(root.left, n)
-    }else{
+    } else {
         root.right = deleteNode(root.right, n)
     }
     return root;
 }
-const findMax = function(root){
-    while(root.right){
+const findMax = function (root) {
+    while (root.right) {
         root = root.right
     }
     return root;
 }
-const findMin = function(root){
-    while(root.left){
+const findMin = function (root) {
+    while (root.left) {
         root = root.left;
     }
     return root;
@@ -894,21 +894,21 @@ let isValidBST = function (root) {
 // 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
 // 一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1
 
-const sortedArrayToBST = function(nums){
-    if(!nums.length){
+const sortedArrayToBST = function (nums) {
+    if (!nums.length) {
         return null;
     }
-    const root = buildBST(0,nums.length-1);
-    function buildBST(low,hight){
+    const root = buildBST(0, nums.length - 1);
+    function buildBST(low, hight) {
         // 当 low > high 时，意味着当前范围的数字已经被递归处理完全了
-        if(low>hight){
+        if (low > hight) {
             return null;
         }
         // 二分一下，取出当前子序列的中间元素
-        const mid = Math.floor((low + hight)/2 );
+        const mid = Math.floor((low + hight) / 2);
         const cur = new TreeNode(nums[mid]);
-        cur.left = buildBST(low,mid-1);
-        cur.right = buildBST(mid+1,hight);
+        cur.left = buildBST(low, mid - 1);
+        cur.right = buildBST(mid + 1, hight);
         return cur;
     }
     return root;
@@ -919,19 +919,19 @@ const sortedArrayToBST = function(nums){
 // 题目描述：给定一个二叉树，判断它是否是高度平衡的二叉树
 // 平衡二叉树是任意结点的左右子树高度差绝对值都不大于1的二叉搜索树
 
-const isBalanced = function (root){
+const isBalanced = function (root) {
     let flag = true;
-    function bfs(root){
-        if(!root || !flag) {
-            return 0 
+    function bfs(root) {
+        if (!root || !flag) {
+            return 0
         }
         const left = bfs(root.left);
         const right = bfs(root.right);
-        if(Math.abs(left-right) >1){
+        if (Math.abs(left - right) > 1) {
             flag = false;
             return 0;
         }
-        return Math.max(left,right) + 1
+        return Math.max(left, right) + 1
 
     }
     bfs(root);
@@ -944,10 +944,10 @@ const isBalanced = function (root){
 // 输出：[2,1,3,null,null,null,4]
 // 解释：这不是唯一的正确答案，[3,1,4,null,2,null,null] 也是一个可行的构造方案。
 
-const balanceBTS = function(root){
+const balanceBTS = function (root) {
     const nums = [];
-    function inorder(root){
-        if(!root){
+    function inorder(root) {
+        if (!root) {
             return;
         }
         inorder(root.left);
@@ -955,16 +955,72 @@ const balanceBTS = function(root){
         inorder(root.right);
     }
 
-    function buildAVL(low,hight){
-        if(low>hight){
+    function buildAVL(low, hight) {
+        if (low > hight) {
             return null;
         }
-        const mid = Math.floor((low + hight)/ 2);
+        const mid = Math.floor((low + hight) / 2);
         const cur = new TreeNode(nums[mid]);
-        cur.left = buildAVL(low,mid-1);
-        cur.right = buildAVL(mid+1,hight);
+        cur.left = buildAVL(low, mid - 1);
+        cur.right = buildAVL(mid + 1, hight);
         return cur;
     }
     inorder(root);
-    return buildAVL(0,nums.length-1)
+    return buildAVL(0, nums.length - 1)
+}
+
+
+
+
+/**
+ * 
+ * 排序算法 实现
+ * 
+ * **/
+
+// 冒泡排序
+const bubbleSort = function (arr) {
+    const len = arr.length;
+    for (let i = 0; i < len; i++) {
+        for (let j = 0; j < len - i-1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+            }
+        }
+    }
+    return arr;
+}
+
+// 选择排序
+const selectSort = function(arr){
+    const len = arr.length;
+    let minIndex;
+    for(let i = 0;i<len-1;i++){
+        minIndex = i;
+        for(let j = i;j<len;j++){
+            if(arr[j] < arr[minIndex]) {  
+                minIndex = j
+              }
+        }
+        if(minIndex !=i){
+            [arr[i],arr[minIndex]] = [arr[minIndex],arr[i]];
+        }
+    }
+    return arr;
+}
+// 插入排序
+
+const insertSort = function(arr){
+    const len = arr.length;
+    let temp;
+    for(let i =1;i<len;i++){
+        let j = i;
+        temp = arr[i];
+        while(j>0 && arr[j-1]>temp){
+            arr[j] = arr[j-1];
+            j--;
+        }
+        arr[j] = temp;
+    }
+    return arr;
 }
