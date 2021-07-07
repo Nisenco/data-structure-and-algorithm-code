@@ -914,3 +914,26 @@ const sortedArrayToBST = function(nums){
     return root;
 }
 
+
+// 平衡二叉树
+// 题目描述：给定一个二叉树，判断它是否是高度平衡的二叉树
+// 平衡二叉树是任意结点的左右子树高度差绝对值都不大于1的二叉搜索树
+
+const isBalanced = function (root){
+    let flag = true;
+    function bfs(root){
+        if(!root || !flag) {
+            return 0 
+        }
+        const left = bfs(root.left);
+        const right = bfs(root.right);
+        if(Math.abs(left-right) >1){
+            flag = false;
+            return 0;
+        }
+        return Math.max(left,right) + 1
+
+    }
+    bfs(root);
+    return flag;
+}
