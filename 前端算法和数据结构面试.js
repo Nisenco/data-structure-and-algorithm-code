@@ -1110,3 +1110,92 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
   function swap(arr, i, j) {
     [arr[i], arr[j]] = [arr[j], arr[i]]
   }
+
+//   动态规划
+// 题目描述：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+// 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+// 注意：给定 n 是一个正整数。
+
+const climbStairs = function(n){
+    if(n==1){
+        return 1;
+    }
+    if(n ==2){
+        return 2;
+    }
+    return climbStairs(n-1) + climbStairs(n-2);
+}
+
+// 优化
+const f = []
+const climbStairs2 = function(n) {
+  if(n==1) {
+      return 1
+  }
+  if(n==2) {
+      return 2
+  }
+  // 若f[n]不存在，则进行计算
+  if(f[n]===undefined)  f[n] = climbStairs2(n-1) + climbStairs2(n-2)
+  // 若f[n]已经求解过，直接返回
+  return f[n]
+};
+
+const climbStairs3 = function(n) {
+    // 初始化状态数组
+    const f = [];
+    // 初始化已知值
+    f[1] = 1;
+    f[2] = 2;
+    // 动态更新每一层楼梯对应的结果
+    for(let i = 3;i <= n;i++){
+        f[i] = f[i-2] + f[i-1];
+    }
+    // 返回目标值
+    return f[n];
+};
+
+// 题目描述：给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
+
+// 示例1：
+// 输入: coins = [1, 2, 5], amount = 11
+
+const coinChange = function(coins,amount){
+    const f=[];
+    for(let i=1;i<=amount;i++){
+        f[i] = Infinity;
+        for(let j ;j<coins.length;j++){
+            if(i-coins[j] >0){
+                f[i] = Math.min(f[i],f[i-coins[j]]+1);
+            }
+        }
+    }
+    if(f[amount] == Infinity){
+        return -1;
+    }
+    return f[amount];
+}
+
+// 有 n 件物品，物品体积用一个名为 w 的数组存起来，物品的价值用一个名为 value 的数组存起来；每件物品的体积用 w[i] 来表示，每件物品的价值用 value[i] 来表示。现在有一个容量为 c 的背包，问你如何选取物品放入背包，才能使得背包内的物品总价值最大？
+// 注意：每种物品都只有1件
+
+// 入参是物品的个数和背包的容量上限，以及物品的重量和价值数组
+function knapsack(n, c, w, value) {
+    // dp是动态规划的状态保存数组
+    const dp = (new Array(c+1)).fill(0)  
+    // res 用来记录所有组合方案中的最大值
+    let res = -Infinity
+    for(let i=1;i<=n;i++) {
+        for(let v=c;v>=w[i];v--) {
+            // 写出状态转移方程
+            dp[v] = Math.max(dp[v], dp[v-w[i]] + value[i])
+            // 即时更新最大值
+            if(dp[v] > res) {
+                res = dp[v]
+            }
+        }
+    }
+    return res
+}
