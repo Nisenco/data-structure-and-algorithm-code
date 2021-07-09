@@ -1199,3 +1199,78 @@ function knapsack(n, c, w, value) {
     }
     return res
 }
+
+/**********最长回文字符串问题*********/ 
+// 输入: "babad"
+// 输出: "bab"
+// 注意: "aba" 也是一个有效答案。
+
+
+
+/***
+ * 题目描述：根据一棵树的前序遍历与中序遍历构造二叉树。
+ * 
+ * **/ 
+
+ const buildTree = function(preorder, inorder) {
+     const len = preorder.length;
+     function build(preL,preR,inL,inR){
+        if(preL > preR) {
+            return null
+        }
+        const root  = new TreeNode();
+        root.val = preorder[preL];
+         // 定位到根结点在中序遍历序列中的位置
+         const k = inorder.indexOf(root.val) ;
+         const numLeft = k - inL;
+         root.left = build(preL+1, preL+numLeft, inL, k-1) ;
+         root.right = build(preL+numLeft+1, preR, k+1, inR) ;
+
+         return root;
+     }
+     return build(0,len-1,0,len-1);
+ }
+
+//  题目描述：给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。要求返回这个链表的 深拷贝。
+// 输入：head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+// 输出：[[7,null],[13,0],[11,4],[10,2],[1,0]]
+
+function Node(val, next, random) {
+   this.val = val;
+   this.next = next;
+   this.random = random;
+}
+const copyRandomList = (head) => {
+    // 处理边界条件
+    if (!head) return null
+    // 初始化copy的头部结点
+    let copyHead = new Node()
+    // 初始化copy的游标结点
+    let copyNode = copyHead
+    // 初始化hashMap
+    const hashMap = new Map()
+    let curr = head
+    // 首次循环，正常处理链表的复制
+    while (curr) {
+        copyNode.val = curr.val
+        copyNode.next = curr.next ? new Node() : null
+        hashMap.set(curr, copyNode)
+        curr = curr.next
+        copyNode = copyNode.next
+    }
+    // 将游标复位到head
+    curr = head
+    // 将copy链表的游标也复位到copyHead
+    copyNode = copyHead
+    // 再搞个循环，特殊处理random关系
+    while (curr) {
+        // 处理random的指向
+        copyNode.random = curr.random ? hashMap.get(curr.random) : null
+        // copyNode 和 curr 两个游标一起前进
+        copyNode = copyNode.next
+        curr = curr.next
+    }
+
+    // 注意这里返回的是copyHead而不是head
+    return copyHead
+};
